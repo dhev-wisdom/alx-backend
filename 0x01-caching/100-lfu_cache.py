@@ -38,6 +38,9 @@ class LFUCache(BaseCaching):
             self.keys[key] += 1
         if len(self.keys) > BaseCaching.MAX_ITEMS:
             lfu = min(self.keys, key=lambda k: self.keys[k])
+            if lfu == key:
+                smallests = heapq.nsmallest(2, self.keys.items(), key=lambda item: item[1])
+                lfu = smallests[1][0]
             del self.cache_data[lfu]
             del self.keys[lfu]
             print(f'DISCARD: {lfu}')
