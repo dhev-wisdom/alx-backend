@@ -3,6 +3,7 @@
 Basic Caching Module
 """
 
+import heapq
 BaseCaching = __import__('base_caching').BaseCaching
 
 
@@ -25,9 +26,11 @@ class LFUCache(BaseCaching):
         """
         Assign value 'item' to key in self.cached_data
         If key or item is None, this method should not do anything.
-        If the number of items in self.cache_data is higher that BaseCaching.MAX_ITEMS:
+        If the number of items in self.cache_data is higher than
+        BaseCaching.MAX_ITEMS:
         you must discard the most recently used item (MRU algorithm)
-        you must print DISCARD: with the key discarded and following by a new line
+        you must print DISCARD: with the key discarded and
+        followed by a new line
 
         """
         if key and item:
@@ -39,7 +42,8 @@ class LFUCache(BaseCaching):
         if len(self.keys) > BaseCaching.MAX_ITEMS:
             lfu = min(self.keys, key=lambda k: self.keys[k])
             if lfu == key:
-                smallests = heapq.nsmallest(2, self.keys.items(), key=lambda item: item[1])
+                smallests = heapq.nsmallest(2, self.keys.items(),
+                                            key=lambda item: item[1])
                 lfu = smallests[1][0]
             del self.cache_data[lfu]
             del self.keys[lfu]
