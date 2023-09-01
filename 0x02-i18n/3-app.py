@@ -29,7 +29,7 @@ def get_locale():
 @app.route("/", strict_slashes=False)
 def index():
     """Home route"""
-    return render_template("1-index.html")
+    return render_template("3-index.html")
 
 
 if __name__ == "__main__":
