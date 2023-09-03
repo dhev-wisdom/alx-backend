@@ -4,7 +4,7 @@ Moldule setup a basic flask app
 """
 
 from flask import Flask, render_template, request
-from flask_babel import Babel
+from flask_babel import Babel, _
 
 
 class Config(object):
@@ -22,7 +22,7 @@ babel = Babel(app)
 @babel.localeselector
 def get_locale():
     """Set locale language"""
-    local = request.args.get("locale", None)
+    locale = request.args.get("locale", None)
     if locale and locale in apps.config["LANGUAGES"]:
         return locale
     return request.accept_languages.best_match(app.config["LANGUAGES"])

@@ -4,7 +4,7 @@ Moldule setup a basic flask app
 """
 
 from flask import Flask, render_template, request, g
-from flask_babel import Babel, _
+from flask_babel import Babel
 
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
@@ -31,6 +31,11 @@ def get_locale():
     locale = request.args.get("locale", None)
     if locale and locale in apps.config["LANGUAGES"]:
         return locale
+
+    locale = request.headers.get("locale", None)
+    if locale and locale in apps.config["LANGUAGES"]:
+        return locale
+
     return request.accept_languages.best_match(app.config["LANGUAGES"])
 
 
@@ -57,7 +62,7 @@ def before_request():
 @app.route("/", strict_slashes=False)
 def index():
     """Home route"""
-    return render_template("5-index.html")
+    return render_template("6-index.html")
 
 
 if __name__ == "__main__":
